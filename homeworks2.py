@@ -1,23 +1,23 @@
 import flet as ft
 
 def main(page: ft.Page):
-    page.title = "Счётчик"
+    txt = ft.Text("Нажато: 0")
 
-    count = 0
+    counter = 0
 
-    text_hello = ft.Text("Нажато: 0 раз")
-
-    def button_click(e):
-        nonlocal count
-        count += 1
-        text_hello.value = f"Нажато: {count} раз"
+    def click(e):
+        nonlocal counter
+        counter += 1
+        txt.value = f"Нажато: {counter}"
         page.update()
 
-    button = ft.ElevatedButton(
-        text="Нажми меня",
-        on_click=button_click
+    page.add(
+        txt,
+        ft.ElevatedButton(
+            "Нажми",
+            on_click=click
+        )
     )
 
-    page.add(text_hello, button)
-
 ft.app(target=main)
+
