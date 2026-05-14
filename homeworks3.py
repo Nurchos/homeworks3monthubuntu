@@ -1,23 +1,41 @@
 import flet as ft
 
 def main(page: ft.Page):
-    page.title = "Счётчик"
+    page.title = "Проверка возраста"
 
-    count = 0
+    input_age = ft.TextField(label="Введите возраст")
 
-    text_hello = ft.Text("Нажато: 0 раз")
+    result = ft.Text("")
 
-    def button_click(e):
-        nonlocal count
-        count += 1
-        text_hello.value = f"Нажато: {count} раз"
+    def check_age(e):
+        age = input_age.value
+
+        if age.isdigit():
+            age = int(age)
+
+            if age >= 18:
+                result.value = "Доступ разрешен"
+                result.color = "green"
+
+            else:
+                result.value = "Доступ запрещен"
+                result.color = "red"
+
+        else:
+            result.value = "Введите корректный возраст"
+            result.color = "yellow"
+
         page.update()
 
     button = ft.ElevatedButton(
-        text="Нажми меня",
-        on_click=button_click
+        text="Проверить",
+        on_click=check_age
     )
 
-    page.add(text_hello, button)
+    page.add(
+        input_age,
+        button,
+        result
+    )
 
 ft.app(target=main)
